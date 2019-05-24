@@ -17,6 +17,20 @@ type Query {
     category(id: ID @eq): Category @find(model: "App\\Category")
 }
 
+type Mutation {
+    createCategory(
+        name: String @rules(apply: ["required", "unique:categories,name"])
+    ): Category @create(model: "App\\Category")
+
+    updateCategory(
+        id: ID @rules(apply: ["required"])
+        name: String @rules(apply: ["required", "unique:categories,name"])
+    ): Category @update(model: "App\\Category")
+
+    deleteCategory(id: ID! @rules(apply: ["required"])): Category
+        @delete(model: "App\\Category")
+}
+
 type User {
     id: ID!
     name: String!
