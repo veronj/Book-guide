@@ -10,6 +10,11 @@ type Query {
     user(id: ID @eq): User @find(model: "App\\User")
 
     books: [Book] @all
+    book(id: ID @eq): Book @find(model: "App\\Book")
+    bookByFeatured(featured: Boolean! @eq): [Book] @all
+
+    categories: [Category] @all
+    category(id: ID @eq): Category @find(model: "App\\Category")
 }
 
 type User {
@@ -22,13 +27,13 @@ type User {
 
 type Book {
     id: ID!
-    name: String!
+    title: String!
     author: String!
     image: String
     description: String
     link: String
     featured: Boolean
-    category: [Category]! @belongsTo
+    category: Category! @belongsTo
 }
 
 type Category {
